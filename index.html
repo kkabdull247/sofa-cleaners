@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>SOFACLEAN | Professional Sofa Cleaning — Pakistan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:      #f8f6f2;
+  --bg2:     #ffffff;
+  --bg3:     #f0ede7;
+  --navy:    #1a2744;
+  --blue:    #2563b0;
+  --accent:  #3b8cf0;
+  --acc2:    #5fa8ff;
+  --foam:    #e8f2ff;
+  --text:    #1a2744;
+  --t2:      rgba(26,39,68,.65);
+  --t3:      rgba(26,39,68,.38);
+  --t4:      rgba(26,39,68,.10);
+  --bdr:     rgba(37,99,176,.18);
+  --bdr2:    rgba(37,99,176,.08);
+  --serif:   'Playfair Display', Georgia, serif;
+  --sans:    'DM Sans', sans-serif;
+  --g:       clamp(20px, 5.5vw, 96px);
+  --r:       12px;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--sans);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a { text-decoration:none; color:inherit; }
+button { font-family:var(--sans); cursor:pointer; border:none; }
+
+/* ═══ LOADER ═══ */
+#loader {
+  position:fixed; inset:0; background:var(--navy); z-index:9999;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px;
+}
+.ld-icon { font-size:3rem; animation:spin 1.6s ease-in-out infinite; }
+@keyframes spin { 0%,100%{transform:rotate(-8deg);} 50%{transform:rotate(8deg);} }
+.ld-logo { font-family:var(--serif); font-size:clamp(1.8rem,5vw,3rem); color:#fff; letter-spacing:.08em; font-weight:700; }
+.ld-sub  { font-size:10px; letter-spacing:.28em; color:rgba(255,255,255,.4); text-transform:uppercase; font-weight:400; }
+.ld-track { width:120px; height:2px; background:rgba(255,255,255,.1); border-radius:99px; }
+.ld-fill  { height:2px; width:0%; background:var(--accent); border-radius:99px; transition:width .06s linear; }
+
+/* ═══ HEADER ═══ */
+#hdr {
+  position:fixed; top:0; left:0; right:0; z-index:900;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:clamp(16px,2.8vw,26px) var(--g);
+  transition:background .45s, padding .45s, box-shadow .45s;
+}
+#hdr.solid {
+  background:rgba(248,246,242,.95);
+  backdrop-filter:blur(20px);
+  box-shadow:0 1px 0 var(--bdr2);
+  padding:clamp(12px,1.6vw,16px) var(--g);
+}
+.hdr-logo { display:flex; align-items:center; gap:10px; }
+.hdr-logo-icon { width:36px; height:36px; background:var(--blue); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0; }
+.hdr-logo-text a { font-family:var(--serif); font-size:clamp(14px,1.5vw,18px); font-weight:700; color:var(--navy); letter-spacing:.04em; display:block; line-height:1; }
+.hdr-logo-text span { font-size:8px; letter-spacing:.2em; color:var(--t3); text-transform:uppercase; font-weight:400; }
+
+.nav-d { display:flex; align-items:center; gap:clamp(14px,2vw,30px); }
+.nav-d a { font-size:13px; font-weight:500; color:var(--t2); transition:color .25s; letter-spacing:.01em; }
+.nav-d a:hover { color:var(--blue); }
+.nav-d .nbtn {
+  background:var(--blue); color:#fff;
+  padding:10px 22px; font-size:12px; font-weight:600;
+  border-radius:var(--r); letter-spacing:.02em;
+  transition:background .25s, transform .25s;
+}
+.nav-d .nbtn:hover { background:var(--navy); transform:translateY(-1px); }
+
+.ham { display:none; flex-direction:column; justify-content:center; gap:5px; width:36px; height:36px; background:none; cursor:pointer; padding:4px; position:relative; z-index:1001; flex-shrink:0; }
+.ham span { display:block; height:1.5px; background:var(--navy); transform-origin:center; transition:all .4s cubic-bezier(.16,1,.3,1); }
+.ham span:nth-child(1) { width:100%; }
+.ham span:nth-child(2) { width:65%; }
+.ham span:nth-child(3) { width:85%; }
+.ham.open span:nth-child(1) { transform:rotate(45deg) translate(5px,4px); width:100%; }
+.ham.open span:nth-child(2) { opacity:0; }
+.ham.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-4px); width:100%; }
+
+.mob-bg { position:fixed; inset:0; background:rgba(26,39,68,.5); backdrop-filter:blur(4px); z-index:999; opacity:0; pointer-events:none; transition:opacity .4s; }
+.mob-bg.open { opacity:1; pointer-events:all; }
+.mob-drawer {
+  position:fixed; top:0; right:-100%; bottom:0; width:min(300px,84vw);
+  background:#fff; border-left:1px solid var(--bdr2); z-index:1000;
+  display:flex; flex-direction:column; padding:76px 32px 44px;
+  transition:right .5s cubic-bezier(.16,1,.3,1); overflow-y:auto;
+  box-shadow:-20px 0 60px rgba(26,39,68,.08);
+}
+.mob-drawer.open { right:0; }
+.mob-brand { font-family:var(--serif); font-size:1.8rem; color:var(--blue); margin-bottom:36px; font-weight:700; }
+.mob-links { display:flex; flex-direction:column; }
+.mob-links a { display:flex; align-items:center; justify-content:space-between; padding:16px 0; border-bottom:1px solid var(--bdr2); font-size:1.15rem; font-weight:500; color:var(--t2); transition:color .25s; }
+.mob-links a:hover { color:var(--blue); }
+.mob-links a em { font-style:normal; font-size:9px; font-family:var(--sans); color:var(--t3); letter-spacing:.14em; }
+.mob-foot { margin-top:auto; padding-top:28px; border-top:1px solid var(--bdr2); }
+.mob-foot p { font-size:12px; color:var(--t3); line-height:2; }
+.mob-foot .mob-cta { display:inline-block; margin-top:16px; background:var(--blue); color:#fff; padding:12px 24px; font-size:12px; font-weight:600; border-radius:var(--r); transition:background .25s; }
+.mob-foot .mob-cta:hover { background:var(--navy); }
+
+@media(max-width:860px) { .nav-d { display:none; } .ham { display:flex; } }
+
+/* ═══ HERO ═══ */
+#hero {
+  min-height:100vh; display:flex; flex-direction:column; justify-content:center;
+  padding:clamp(100px,14vh,160px) var(--g) clamp(60px,8vh,100px);
+  position:relative; overflow:hidden;
+}
+.hero-bubbles {
+  position:absolute; inset:0; pointer-events:none; overflow:hidden;
+}
+.bubble {
+  position:absolute; border-radius:50%;
+  background:radial-gradient(circle, rgba(59,140,240,.12), rgba(59,140,240,.03));
+  animation:float 8s ease-in-out infinite;
+}
+.b1 { width:500px; height:500px; top:-120px; right:-100px; animation-delay:0s; }
+.b2 { width:300px; height:300px; top:40%; left:-80px; animation-delay:-3s; }
+.b3 { width:200px; height:200px; bottom:10%; right:15%; animation-delay:-5s; }
+@keyframes float { 0%,100%{transform:translateY(0) scale(1);} 50%{transform:translateY(-20px) scale(1.04);} }
+
+.hero-tag {
+  display:inline-flex; align-items:center; gap:10px;
+  background:var(--foam); border:1px solid var(--bdr);
+  padding:8px 16px; border-radius:99px; margin-bottom:clamp(18px,3vh,32px);
+  width:fit-content;
+}
+.hero-tag-dot { width:7px; height:7px; background:var(--accent); border-radius:50%; animation:pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.4;} }
+.hero-tag span { font-size:11px; font-weight:500; color:var(--blue); letter-spacing:.1em; text-transform:uppercase; }
+
+.hero-h1 {
+  font-family:var(--serif); font-weight:700; line-height:.92;
+  font-size:clamp(3rem,10vw,9rem); margin-bottom:clamp(20px,3vh,36px);
+  letter-spacing:-.02em; color:var(--navy);
+}
+.hero-h1 em { font-style:italic; color:var(--blue); }
+.hero-h1 .wave { display:inline-block; animation:wave 3s ease-in-out infinite; }
+@keyframes wave { 0%,100%{transform:rotate(-2deg);} 50%{transform:rotate(2deg);} }
+
+.hero-sub {
+  font-size:clamp(13px,1.3vw,16px); color:var(--t2); max-width:480px;
+  line-height:1.75; font-weight:400; margin-bottom:clamp(28px,4vh,48px);
+}
+.hero-btns { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:clamp(36px,5vh,64px); }
+.btn-primary {
+  display:inline-flex; align-items:center; gap:10px;
+  background:var(--blue); color:#fff; padding:clamp(12px,1.5vh,16px) clamp(24px,2.5vw,36px);
+  font-size:13px; font-weight:600; border-radius:var(--r); border:none;
+  transition:all .3s cubic-bezier(.16,1,.3,1); cursor:pointer;
+}
+.btn-primary:hover { background:var(--navy); transform:translateY(-2px); box-shadow:0 12px 30px rgba(37,99,176,.25); }
+.btn-outline {
+  display:inline-flex; align-items:center; gap:10px;
+  background:transparent; color:var(--navy); padding:clamp(12px,1.5vh,16px) clamp(24px,2.5vw,36px);
+  font-size:13px; font-weight:600; border-radius:var(--r); border:1.5px solid var(--bdr);
+  transition:all .3s; cursor:pointer;
+}
+.btn-outline:hover { border-color:var(--blue); color:var(--blue); }
+
+.hero-stats { display:flex; gap:clamp(24px,4vw,56px); flex-wrap:wrap; }
+.hs { }
+.hs-n { font-family:var(--serif); font-size:clamp(1.8rem,3.5vw,3rem); color:var(--blue); font-weight:700; line-height:1; }
+.hs-l { font-size:11px; font-weight:500; color:var(--t3); text-transform:uppercase; letter-spacing:.12em; margin-top:3px; }
+.hero-visual {
+  position:absolute; right:var(--g); top:50%; transform:translateY(-50%);
+  width:clamp(280px,35vw,520px); pointer-events:none;
+}
+@media(max-width:1100px) { .hero-visual { display:none; } }
+
+.hero-img-card {
+  width:100%; aspect-ratio:4/3; background:linear-gradient(135deg, #e8f2ff 0%, #c8dffb 100%);
+  border-radius:24px; border:1px solid var(--bdr); overflow:hidden; position:relative;
+  box-shadow:0 32px 80px rgba(37,99,176,.12);
+}
+.hero-img-card img { width:100%; height:100%; object-fit:cover; filter:saturate(.85); }
+.hero-card-badge {
+  position:absolute; bottom:20px; left:20px; right:20px;
+  background:rgba(255,255,255,.92); backdrop-filter:blur(16px);
+  border-radius:12px; padding:14px 18px;
+  display:flex; align-items:center; gap:12px;
+  box-shadow:0 4px 20px rgba(26,39,68,.12);
+}
+.hcb-icon { font-size:1.4rem; }
+.hcb-text p { font-size:12px; font-weight:600; color:var(--navy); margin-bottom:2px; }
+.hcb-text span { font-size:11px; color:var(--t3); font-weight:400; }
+
+/* ═══ TICKER ═══ */
+.ticker { background:var(--blue); overflow:hidden; padding:10px 0; }
+.ticker-inner { display:flex; width:max-content; animation:tkr 28s linear infinite; }
+@keyframes tkr { to { transform:translateX(-50%); } }
+.ti { font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.9); font-weight:500; padding:0 36px; white-space:nowrap; }
+.ti-dot { color:rgba(255,255,255,.35); margin:0 4px; }
+
+/* ═══ SECTION SHARED ═══ */
+.sec { padding:clamp(64px,10vh,128px) var(--g); }
+.sec-light { background:var(--bg2); }
+.sec-soft  { background:var(--bg3); }
+.sec-navy  { background:var(--navy); }
+
+.eyebrow { display:inline-flex; align-items:center; gap:10px; margin-bottom:clamp(12px,2vh,20px); }
+.eyebrow-line { width:24px; height:2px; background:var(--accent); border-radius:99px; flex-shrink:0; }
+.eyebrow-txt { font-size:11px; letter-spacing:.2em; color:var(--blue); text-transform:uppercase; font-weight:600; }
+
+.sec-h2 {
+  font-family:var(--serif); font-weight:700; line-height:1.1;
+  font-size:clamp(1.9rem,4vw,3.6rem); margin-bottom:clamp(12px,2vh,22px);
+  color:var(--navy); letter-spacing:-.01em;
+}
+.sec-h2 em { font-style:italic; color:var(--blue); }
+.sec-h2.light { color:#fff; }
+.sec-p { font-size:clamp(13px,1.1vw,15px); color:var(--t2); line-height:1.8; font-weight:400; }
+.sec-p.light { color:rgba(255,255,255,.65); }
+
+.rv { will-change:transform; }
+
+/* ═══ WHY US ═══ */
+.why-grid { display:grid; grid-template-columns:1fr 1fr; gap:clamp(36px,6vw,96px); align-items:center; }
+.why-img-wrap { position:relative; }
+.why-img {
+  width:100%; aspect-ratio:3/4; object-fit:cover;
+  border-radius:20px; display:block;
+  filter:saturate(.9);
+}
+.why-float-card {
+  position:absolute; bottom:-20px; right:-20px;
+  background:#fff; border-radius:16px; padding:20px 22px;
+  box-shadow:0 20px 60px rgba(26,39,68,.12);
+  border:1px solid var(--bdr2);
+}
+.wfc-row { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+.wfc-row:last-child { margin-bottom:0; }
+.wfc-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.wfc-green { background:#22c55e; }
+.wfc-blue  { background:var(--accent); }
+.wfc-amber { background:#f59e0b; }
+.wfc-txt { font-size:12px; font-weight:500; color:var(--navy); }
+
+.why-points { display:flex; flex-direction:column; gap:clamp(16px,2.5vh,24px); margin-top:clamp(24px,4vh,40px); }
+.wp { display:flex; gap:16px; padding:clamp(16px,2.5vh,22px); background:var(--foam); border-radius:var(--r); border:1px solid var(--bdr); transition:border-color .3s, transform .3s; }
+.wp:hover { border-color:var(--accent); transform:translateX(4px); }
+.wp-icon { width:44px; height:44px; background:var(--blue); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0; }
+.wp-t { font-size:14px; font-weight:600; color:var(--navy); margin-bottom:4px; }
+.wp-d { font-size:12px; color:var(--t2); line-height:1.6; }
+
+@media(max-width:860px) { .why-grid { grid-template-columns:1fr; } .why-float-card { right:0; bottom:-12px; } }
+
+/* ═══ SERVICES ═══ */
+.srv-head { display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:clamp(36px,5vh,60px); flex-wrap:wrap; }
+.srv-head-note { max-width:280px; }
+.srv-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(14px,2vw,24px); }
+.scard {
+  background:#fff; border-radius:16px; overflow:hidden;
+  border:1px solid var(--bdr2); transition:border-color .35s, transform .35s, box-shadow .35s;
+  position:relative;
+}
+.scard:hover { border-color:var(--bdr); transform:translateY(-6px); box-shadow:0 24px 60px rgba(37,99,176,.10); }
+.scard-img { width:100%; height:180px; overflow:hidden; position:relative; }
+.scard-img img { width:100%; height:100%; object-fit:cover; filter:saturate(.8); transition:filter .6s, transform .6s; }
+.scard:hover .scard-img img { filter:saturate(1); transform:scale(1.05); }
+.scard-tag { position:absolute; top:12px; right:12px; background:var(--blue); color:#fff; font-size:9px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; padding:4px 10px; border-radius:99px; }
+.scard-body { padding:clamp(16px,2.5vw,24px); }
+.scard-icon { width:40px; height:40px; background:var(--foam); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; margin-bottom:12px; border:1px solid var(--bdr); }
+.scard-title { font-family:var(--serif); font-size:clamp(1.1rem,1.8vw,1.4rem); color:var(--navy); font-weight:700; margin-bottom:8px; }
+.scard-desc  { font-size:12px; color:var(--t2); line-height:1.7; margin-bottom:16px; }
+.scard-foot  { display:flex; align-items:center; justify-content:space-between; padding-top:14px; border-top:1px solid var(--t4); }
+.scard-price { font-family:var(--serif); font-size:1.2rem; color:var(--navy); font-weight:700; }
+.scard-price small { font-size:.5em; font-family:var(--sans); font-weight:400; color:var(--t3); }
+.scard-link { font-size:11px; font-weight:600; color:var(--blue); display:flex; align-items:center; gap:5px; transition:gap .25s; }
+.scard:hover .scard-link { gap:9px; }
+
+@media(max-width:900px) { .srv-grid { grid-template-columns:1fr 1fr; } }
+@media(max-width:540px) { .srv-grid { grid-template-columns:1fr; } }
+
+/* ═══ PROCESS ═══ */
+.process-wrap { display:grid; grid-template-columns:1fr 1fr; gap:clamp(36px,6vw,96px); align-items:center; }
+.process-steps { display:flex; flex-direction:column; gap:0; }
+.pstep {
+  display:flex; gap:20px; padding:clamp(18px,2.5vh,26px) 0;
+  border-bottom:1px solid var(--bdr2); position:relative;
+}
+.pstep:last-child { border-bottom:none; }
+.pstep-num {
+  width:44px; height:44px; border-radius:50%; background:var(--foam);
+  border:2px solid var(--bdr); display:flex; align-items:center; justify-content:center;
+  font-family:var(--serif); font-size:1rem; font-weight:700; color:var(--blue);
+  flex-shrink:0; transition:background .3s, border-color .3s;
+}
+.pstep:hover .pstep-num { background:var(--blue); border-color:var(--blue); color:#fff; }
+.pstep-t { font-size:14px; font-weight:600; color:var(--navy); margin-bottom:5px; }
+.pstep-d { font-size:12px; color:var(--t2); line-height:1.65; }
+.process-img-wrap { position:relative; }
+.process-img {
+  width:100%; aspect-ratio:3/4; object-fit:cover;
+  border-radius:20px; display:block; filter:saturate(.85);
+}
+.process-pill {
+  position:absolute; top:28px; left:-24px;
+  background:#fff; border-radius:12px; padding:14px 18px;
+  box-shadow:0 12px 40px rgba(26,39,68,.12); border:1px solid var(--bdr2);
+}
+.process-pill p { font-size:11px; font-weight:600; color:var(--blue); text-transform:uppercase; letter-spacing:.12em; margin-bottom:3px; }
+.process-pill span { font-family:var(--serif); font-size:1.4rem; color:var(--navy); font-weight:700; }
+
+@media(max-width:860px) { .process-wrap { grid-template-columns:1fr; } .process-pill { display:none; } }
+
+/* ═══ TESTIMONIALS ═══ */
+.testi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(14px,2vw,24px); }
+.tc {
+  background:#fff; border-radius:16px; padding:clamp(20px,3vw,28px);
+  border:1px solid var(--bdr2); transition:transform .3s, box-shadow .3s;
+}
+.tc:hover { transform:translateY(-4px); box-shadow:0 16px 48px rgba(37,99,176,.09); }
+.tc-stars { display:flex; gap:3px; margin-bottom:14px; }
+.tc-stars span { font-size:14px; color:#f59e0b; }
+.tc-text { font-family:var(--serif); font-size:clamp(.9rem,1.3vw,1.05rem); color:var(--navy); line-height:1.7; font-style:italic; margin-bottom:18px; }
+.tc-auth { display:flex; align-items:center; gap:12px; padding-top:16px; border-top:1px solid var(--t4); }
+.tc-av { width:38px; height:38px; border-radius:50%; background:var(--foam); border:2px solid var(--bdr); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:12px; color:var(--blue); flex-shrink:0; }
+.tc-nm { font-size:12px; font-weight:600; color:var(--navy); }
+.tc-mt { font-size:10px; color:var(--t3); letter-spacing:.08em; margin-top:1px; }
+
+@media(max-width:860px) { .testi-grid { grid-template-columns:1fr 1fr; } }
+@media(max-width:540px) { .testi-grid { grid-template-columns:1fr; } }
+
+/* ═══ PRICING ═══ */
+.pricing-hd { text-align:center; max-width:520px; margin:0 auto clamp(40px,6vh,72px); }
+.prc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(14px,2vw,22px); max-width:880px; margin:0 auto; }
+.pc {
+  background:#fff; border-radius:16px; padding:clamp(22px,3vw,32px);
+  border:1px solid var(--bdr2); position:relative; transition:transform .3s, box-shadow .3s;
+}
+.pc:hover { transform:translateY(-4px); box-shadow:0 16px 48px rgba(37,99,176,.09); }
+.pc.feat { background:var(--navy); border-color:var(--navy); }
+.pc-badge {
+  position:absolute; top:-13px; left:50%; transform:translateX(-50%);
+  background:var(--blue); color:#fff; font-size:9px; letter-spacing:.18em;
+  text-transform:uppercase; font-weight:600; padding:5px 16px; border-radius:99px; white-space:nowrap;
+}
+.pc-icon { font-size:1.6rem; margin-bottom:12px; }
+.pc-name { font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--t3); font-weight:600; margin-bottom:10px; }
+.pc.feat .pc-name { color:rgba(255,255,255,.45); }
+.pc-price { font-family:var(--serif); font-size:clamp(2rem,3.5vw,2.8rem); color:var(--navy); font-weight:700; line-height:1; margin-bottom:3px; }
+.pc.feat .pc-price { color:#fff; }
+.pc-price small { font-size:.4em; font-family:var(--sans); font-weight:400; vertical-align:super; }
+.pc-dur { font-size:11px; color:var(--t3); margin-bottom:20px; }
+.pc.feat .pc-dur { color:rgba(255,255,255,.4); }
+.pc-div { height:1px; background:var(--t4); margin-bottom:20px; }
+.pc.feat .pc-div { background:rgba(255,255,255,.1); }
+.pc-list { list-style:none; display:flex; flex-direction:column; gap:10px; margin-bottom:22px; }
+.pc-list li { font-size:13px; color:var(--t2); display:flex; align-items:flex-start; gap:10px; line-height:1.5; }
+.pc.feat .pc-list li { color:rgba(255,255,255,.75); }
+.pc-check { width:18px; height:18px; border-radius:50%; background:var(--foam); border:1px solid var(--bdr); display:flex; align-items:center; justify-content:center; font-size:9px; color:var(--blue); flex-shrink:0; margin-top:1px; }
+.pc.feat .pc-check { background:rgba(255,255,255,.15); border-color:rgba(255,255,255,.2); color:#fff; }
+.pc-btn { width:100%; padding:12px; font-size:12px; font-weight:600; border-radius:var(--r); border:1.5px solid var(--bdr); background:transparent; color:var(--navy); transition:all .3s; cursor:pointer; }
+.pc.feat .pc-btn { background:var(--blue); color:#fff; border-color:var(--blue); }
+.pc-btn:hover { background:var(--blue); color:#fff; border-color:var(--blue); }
+.pc.feat .pc-btn:hover { background:#fff; color:var(--navy); border-color:#fff; }
+
+@media(max-width:768px) { .prc-grid { grid-template-columns:1fr; max-width:400px; } }
+
+/* ═══ FAQ ═══ */
+.faq-grid { display:grid; grid-template-columns:1fr 1fr; gap:clamp(36px,6vw,96px); align-items:start; }
+.faq-left { position:sticky; top:100px; }
+.faq-list { display:flex; flex-direction:column; }
+.fq { border-bottom:1px solid var(--bdr2); }
+.fq-q { display:flex; align-items:center; justify-content:space-between; padding:clamp(14px,2vh,20px) 0; cursor:pointer; font-size:13px; font-weight:500; color:var(--t2); transition:color .25s; user-select:none; }
+.fq-q:hover { color:var(--navy); }
+.fq-q.on { color:var(--blue); }
+.fq-ico { width:24px; height:24px; border:1.5px solid var(--bdr); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; color:var(--t3); flex-shrink:0; margin-left:14px; transition:all .3s; font-style:normal; }
+.fq-q.on .fq-ico { border-color:var(--blue); color:var(--blue); transform:rotate(45deg); }
+.fq-body { height:0; overflow:hidden; transition:height .4s cubic-bezier(.16,1,.3,1); }
+.fq-body-in { padding:0 0 clamp(12px,1.6vh,18px); font-size:13px; color:var(--t2); line-height:1.8; }
+
+@media(max-width:768px) { .faq-grid { grid-template-columns:1fr; } .faq-left { position:static; } }
+
+/* ═══ CONTACT ═══ */
+.contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:clamp(36px,5vw,80px); }
+.contact-info { display:flex; flex-direction:column; gap:0; }
+.ci { display:flex; gap:16px; padding:clamp(16px,2vh,22px) 0; border-bottom:1px solid rgba(255,255,255,.08); }
+.ci-icon { width:44px; height:44px; background:rgba(255,255,255,.08); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
+.ci-lbl { font-size:9px; letter-spacing:.16em; color:rgba(255,255,255,.35); text-transform:uppercase; font-weight:600; margin-bottom:5px; }
+.ci-val { font-size:clamp(12px,1.1vw,14px); color:rgba(255,255,255,.8); line-height:1.65; }
+.contact-form-card { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:20px; padding:clamp(24px,3.5vw,40px); }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+.form-group { display:flex; flex-direction:column; gap:6px; margin-bottom:14px; }
+.form-group label { font-size:11px; font-weight:600; color:rgba(255,255,255,.5); text-transform:uppercase; letter-spacing:.12em; }
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12);
+  border-radius:10px; padding:12px 14px; font-family:var(--sans);
+  font-size:13px; color:#fff; outline:none; transition:border-color .25s;
+  width:100%;
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder { color:rgba(255,255,255,.25); }
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-color:var(--accent); }
+.form-group select option { background:var(--navy); color:#fff; }
+.form-group textarea { resize:vertical; min-height:90px; }
+.form-submit { width:100%; padding:14px; background:var(--accent); color:#fff; font-size:13px; font-weight:600; border-radius:var(--r); border:none; cursor:pointer; transition:background .25s, transform .25s; letter-spacing:.02em; }
+.form-submit:hover { background:#5fa8ff; transform:translateY(-2px); }
+
+@media(max-width:860px) { .contact-grid { grid-template-columns:1fr; } .form-row { grid-template-columns:1fr; } }
+
+/* ═══ CTA BANNER ═══ */
+.cta-banner {
+  background:linear-gradient(135deg, var(--blue) 0%, #1a4fa8 100%);
+  padding:clamp(56px,8vh,100px) var(--g); text-align:center; position:relative; overflow:hidden;
+}
+.cta-banner::before {
+  content:''; position:absolute; top:-40%; right:-10%; width:500px; height:500px;
+  border-radius:50%; background:rgba(255,255,255,.04);
+}
+.cta-banner::after {
+  content:''; position:absolute; bottom:-30%; left:-5%; width:350px; height:350px;
+  border-radius:50%; background:rgba(255,255,255,.03);
+}
+.cta-banner h2 { font-family:var(--serif); font-size:clamp(2.4rem,6vw,5rem); color:#fff; font-weight:700; line-height:.96; margin-bottom:clamp(14px,2vh,22px); position:relative; z-index:1; }
+.cta-banner h2 em { font-style:italic; color:rgba(255,255,255,.7); }
+.cta-banner p { font-size:13px; color:rgba(255,255,255,.7); margin-bottom:clamp(28px,4vh,44px); letter-spacing:.06em; position:relative; z-index:1; }
+.cta-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; position:relative; z-index:1; }
+.btn-white { background:#fff; color:var(--blue); padding:clamp(12px,1.5vh,16px) clamp(28px,3vw,44px); font-size:13px; font-weight:600; border-radius:var(--r); border:none; cursor:pointer; transition:all .3s; display:inline-flex; align-items:center; gap:10px; }
+.btn-white:hover { background:var(--foam); transform:translateY(-2px); }
+.btn-white-out { background:transparent; color:#fff; padding:clamp(12px,1.5vh,16px) clamp(28px,3vw,44px); font-size:13px; font-weight:600; border-radius:var(--r); border:1.5px solid rgba(255,255,255,.35); cursor:pointer; transition:all .3s; display:inline-flex; align-items:center; gap:10px; }
+.btn-white-out:hover { border-color:#fff; }
+
+/* ═══ FOOTER ═══ */
+footer { background:#111b2e; border-top:1px solid rgba(255,255,255,.06); }
+.ft-main { padding:clamp(44px,7vh,88px) var(--g); display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:clamp(24px,3vw,52px); }
+.ft-brand .flogo { font-family:var(--serif); font-size:1.2rem; font-weight:700; color:var(--accent); display:block; margin-bottom:12px; letter-spacing:.04em; }
+.ft-brand p { font-size:12px; color:rgba(255,255,255,.35); line-height:1.8; max-width:220px; margin-bottom:20px; }
+.ft-soc { display:flex; gap:8px; }
+.ft-soc a { width:34px; height:34px; border:1px solid rgba(255,255,255,.1); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:600; color:rgba(255,255,255,.3); transition:all .25s; }
+.ft-soc a:hover { border-color:var(--accent); color:var(--accent); }
+.ft-col-h { font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.5); font-weight:600; margin-bottom:16px; }
+.ft-col-l { display:flex; flex-direction:column; gap:8px; }
+.ft-col-l a { font-size:12px; color:rgba(255,255,255,.3); transition:color .25s; }
+.ft-col-l a:hover { color:var(--accent); }
+.ft-bot { padding:20px var(--g); border-top:1px solid rgba(255,255,255,.06); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+.ft-bot span { font-size:11px; color:rgba(255,255,255,.2); letter-spacing:.08em; }
+
+@media(max-width:860px) { .ft-main { grid-template-columns:1fr 1fr; } }
+@media(max-width:520px) { .ft-main { grid-template-columns:1fr; } .ft-bot { flex-direction:column; text-align:center; } }
+
+/* ═══ TRUST BAR ═══ */
+.trust-bar { background:#fff; padding:clamp(28px,4vh,44px) var(--g); border-bottom:1px solid var(--bdr2); }
+.trust-inner { display:flex; align-items:center; justify-content:space-around; gap:24px; flex-wrap:wrap; }
+.trust-item { display:flex; align-items:center; gap:10px; }
+.trust-icon { font-size:1.4rem; }
+.trust-text { font-size:12px; font-weight:600; color:var(--t2); letter-spacing:.03em; }
+
+/* ═══ COVERAGE ═══ */
+.cities-wrap { display:flex; flex-wrap:wrap; gap:10px; margin-top:clamp(28px,4vh,44px); }
+.city-pill { background:#fff; border:1px solid var(--bdr); border-radius:99px; padding:8px 18px; font-size:12px; font-weight:500; color:var(--navy); transition:all .25s; display:flex; align-items:center; gap:8px; }
+.city-pill:hover { background:var(--foam); border-color:var(--accent); color:var(--blue); }
+.city-dot { width:6px; height:6px; background:var(--accent); border-radius:50%; }
+
+/* ═══ ANIMATE ═══ */
+@media(max-width:400px) {
+  .hero-h1 { font-size:2.8rem; }
+  .cta-banner h2 { font-size:2.4rem; }
+  .cta-btns { flex-direction:column; align-items:center; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="ld-icon">🧹</div>
+  <div class="ld-logo">SOFACLEAN</div>
+  <div class="ld-sub">Pakistan's Premium Sofa Cleaning</div>
+  <div class="ld-track"><div class="ld-fill" id="ldFill"></div></div>
+</div>
+
+<!-- HEADER -->
+<header id="hdr">
+  <div class="hdr-logo">
+    <div class="hdr-logo-icon">🛋️</div>
+    <div class="hdr-logo-text">
+      <a href="#">SOFACLEAN</a>
+      <span>Professional Sofa &amp; Upholstery</span>
+    </div>
+  </div>
+  <nav class="nav-d">
+    <a href="#why">Why Us</a>
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact">Contact</a>
+    <button class="nbtn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book Now</button>
+  </nav>
+  <button class="ham" id="ham" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+</header>
+
+<!-- MOBILE DRAWER -->
+<div class="mob-bg" id="mobBg"></div>
+<div class="mob-drawer" id="mobDrawer">
+  <div class="mob-brand">SC.</div>
+  <nav class="mob-links">
+    <a href="#why"><span>Why Us</span><em>01</em></a>
+    <a href="#services"><span>Services</span><em>02</em></a>
+    <a href="#process"><span>Process</span><em>03</em></a>
+    <a href="#pricing"><span>Pricing</span><em>04</em></a>
+    <a href="#contact"><span>Contact</span><em>05</em></a>
+  </nav>
+  <div class="mob-foot">
+    <p>Serving Karachi, Lahore &amp; Islamabad<br>+92 300 000 0000<br>info@sofaclean.pk</p>
+    <a href="#contact" class="mob-cta">Book Appointment</a>
+  </div>
+</div>
+
+<main>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bubbles">
+    <div class="bubble b1"></div>
+    <div class="bubble b2"></div>
+    <div class="bubble b3"></div>
+  </div>
+
+  <div class="hero-tag rv">
+    <div class="hero-tag-dot"></div>
+    <span>Pakistan's #1 Sofa Cleaning Service</span>
+  </div>
+
+  <h1 class="hero-h1 rv">
+    Your Sofa,<br>
+    <em>Spotless</em><br>
+    Again.
+  </h1>
+
+  <p class="hero-sub rv">Deep steam cleaning, stain removal, and odour elimination for sofas, sectionals, and upholstery — done in your home, by certified professionals.</p>
+
+  <div class="hero-btns rv">
+    <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">📅 Book a Cleaning</button>
+    <a href="tel:+923000000000" class="btn-outline">📞 Call Now</a>
+  </div>
+
+  <div class="hero-stats rv">
+    <div class="hs"><div class="hs-n" id="hn1">2,000+</div><div class="hs-l">Sofas Cleaned</div></div>
+    <div class="hs"><div class="hs-n" id="hn2">3</div><div class="hs-l">Cities Served</div></div>
+    <div class="hs"><div class="hs-n" id="hn3">4.9★</div><div class="hs-l">Avg Rating</div></div>
+    <div class="hs"><div class="hs-n" id="hn4">100%</div><div class="hs-l">Satisfaction</div></div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-img-card">
+      <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1200" alt="Clean sofa"/>
+      <div class="hero-card-badge">
+        <div class="hcb-icon">✅</div>
+        <div class="hcb-text">
+          <p>Booking Confirmed</p>
+          <span>Today, 2:00 PM — Gulshan-e-Iqbal</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ti">Sofa Cleaning<span class="ti-dot"> · </span></span>
+    <span class="ti">Stain Removal<span class="ti-dot"> · </span></span>
+    <span class="ti">Odour Elimination<span class="ti-dot"> · </span></span>
+    <span class="ti">Steam Deep Clean<span class="ti-dot"> · </span></span>
+    <span class="ti">Mattress Cleaning<span class="ti-dot"> · </span></span>
+    <span class="ti">Carpet Cleaning<span class="ti-dot"> · </span></span>
+    <span class="ti">Karachi · Lahore · Islamabad<span class="ti-dot"> · </span></span>
+    <span class="ti">Sofa Cleaning<span class="ti-dot"> · </span></span>
+    <span class="ti">Stain Removal<span class="ti-dot"> · </span></span>
+    <span class="ti">Odour Elimination<span class="ti-dot"> · </span></span>
+    <span class="ti">Steam Deep Clean<span class="ti-dot"> · </span></span>
+    <span class="ti">Mattress Cleaning<span class="ti-dot"> · </span></span>
+    <span class="ti">Carpet Cleaning<span class="ti-dot"> · </span></span>
+    <span class="ti">Karachi · Lahore · Islamabad<span class="ti-dot"> · </span></span>
+  </div>
+</div>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item"><span class="trust-icon">🧪</span><span class="trust-text">Eco-Friendly Products</span></div>
+    <div class="trust-item"><span class="trust-icon">🏠</span><span class="trust-text">In-Home Service</span></div>
+    <div class="trust-item"><span class="trust-icon">⚡</span><span class="trust-text">Same-Day Available</span></div>
+    <div class="trust-item"><span class="trust-icon">💯</span><span class="trust-text">Satisfaction Guarantee</span></div>
+    <div class="trust-item"><span class="trust-icon">🔒</span><span class="trust-text">Insured &amp; Certified</span></div>
+  </div>
+</div>
+
+<!-- WHY US -->
+<section class="sec sec-light" id="why">
+  <div class="why-grid">
+    <div class="why-img-wrap rv">
+      <img class="why-img" src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=900" alt="Professional sofa cleaning"/>
+      <div class="why-float-card">
+        <div class="wfc-row"><div class="wfc-dot wfc-green"></div><div class="wfc-txt">Child &amp; pet safe solutions</div></div>
+        <div class="wfc-row"><div class="wfc-dot wfc-blue"></div><div class="wfc-txt">Hospital-grade sanitisation</div></div>
+        <div class="wfc-row"><div class="wfc-dot wfc-amber"></div><div class="wfc-txt">Dry in under 2 hours</div></div>
+      </div>
+    </div>
+    <div class="rv">
+      <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-txt">Why SOFACLEAN</span></div>
+      <h2 class="sec-h2">Your Furniture<br>Deserves <em>Better.</em></h2>
+      <p class="sec-p">Over time, sofas absorb dust mites, allergens, bacteria, and deeply set stains that regular vacuuming simply cannot reach. Our professional deep-clean restores your upholstery to a fresher, healthier state.</p>
+      <div class="why-points">
+        <div class="wp">
+          <div class="wp-icon">🔬</div>
+          <div>
+            <div class="wp-t">Industrial Steam Technology</div>
+            <div class="wp-d">Our high-pressure steam machines penetrate deep into fabric fibres — eliminating bacteria, mites, and allergens that live below the surface.</div>
+          </div>
+        </div>
+        <div class="wp">
+          <div class="wp-icon">🌿</div>
+          <div>
+            <div class="wp-t">Safe for Your Family</div>
+            <div class="wp-d">All products are non-toxic, biodegradable, and completely safe for children, babies, and pets. No harsh chemicals, ever.</div>
+          </div>
+        </div>
+        <div class="wp">
+          <div class="wp-icon">🏆</div>
+          <div>
+            <div class="wp-t">Certified Professional Team</div>
+            <div class="wp-d">Every technician is trained, background-checked, and equipped with professional-grade tools. We treat your home like our own.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="sec" id="services">
+  <div class="srv-head rv">
+    <div>
+      <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-txt">Our Services</span></div>
+      <h2 class="sec-h2">What We <em>Clean.</em></h2>
+    </div>
+    <div class="srv-head-note">
+      <p class="sec-p">From fabric sofas to leather sectionals — we have the right process for every material and every mess.</p>
+    </div>
+  </div>
+  <div class="srv-grid">
+    <div class="scard rv">
+      <div class="scard-img">
+        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800" alt="Sofa Deep Clean"/>
+        <div class="scard-tag">Most Popular</div>
+      </div>
+      <div class="scard-body">
+        <div class="scard-icon">🛋️</div>
+        <div class="scard-title">Sofa Deep Clean</div>
+        <div class="scard-desc">Full steam extraction clean for fabric sofas. Removes stains, odours, dust mites, and allergens. Includes pre-treatment spray for tough spots.</div>
+        <div class="scard-foot">
+          <div class="scard-price"><small>From PKR</small> 2,500</div>
+          <div class="scard-link">Book Now →</div>
+        </div>
+      </div>
+    </div>
+    <div class="scard rv">
+      <div class="scard-img">
+        <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=800" alt="Leather Sofa Clean"/>
+      </div>
+      <div class="scard-body">
+        <div class="scard-icon">🪑</div>
+        <div class="scard-title">Leather Sofa Care</div>
+        <div class="scard-desc">Specialist leather cleaning, conditioning, and protection treatment. Restores suppleness, removes surface grime, and seals against future stains.</div>
+        <div class="scard-foot">
+          <div class="scard-price"><small>From PKR</small> 3,500</div>
+          <div class="scard-link">Book Now →</div>
+        </div>
+      </div>
+    </div>
+    <div class="scard rv">
+      <div class="scard-img">
+        <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=800" alt="Mattress Cleaning"/>
+      </div>
+      <div class="scard-body">
+        <div class="scard-icon">🛏️</div>
+        <div class="scard-title">Mattress Cleaning</div>
+        <div class="scard-desc">Deep steam sanitisation for mattresses — eliminates dust mites, sweat residue, and bacteria. UV light treatment included for full hygiene.</div>
+        <div class="scard-foot">
+          <div class="scard-price"><small>From PKR</small> 2,000</div>
+          <div class="scard-link">Book Now →</div>
+        </div>
+      </div>
+    </div>
+    <div class="scard rv">
+      <div class="scard-img">
+        <img src="https://images.unsplash.com/photo-1560448204-603b3fc33ddc?q=80&w=800" alt="Carpet Cleaning"/>
+        <div class="scard-tag">Premium</div>
+      </div>
+      <div class="scard-body">
+        <div class="scard-icon">🟫</div>
+        <div class="scard-title">Carpet &amp; Rug Cleaning</div>
+        <div class="scard-desc">Hot water extraction cleaning for wall-to-wall carpets and area rugs. Revives colour, removes embedded dirt, and treats pet odours.</div>
+        <div class="scard-foot">
+          <div class="scard-price"><small>From PKR</small> 1,800</div>
+          <div class="scard-link">Book Now →</div>
+        </div>
+      </div>
+    </div>
+    <div class="scard rv">
+      <div class="scard-img">
+        <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?q=80&w=800" alt="Chair Cleaning"/>
+      </div>
+      <div class="scard-body">
+        <div class="scard-icon">💺</div>
+        <div class="scard-title">Chair &amp; Divan Cleaning</div>
+        <div class="scard-desc">Single chair, dining chair, and divan cleaning using the same professional steam process. Perfect for upholstered dining sets.</div>
+        <div class="scard-foot">
+          <div class="scard-price"><small>From PKR</small> 800</div>
+          <div class="scard-link">Book Now →</div>
+        </div>
+      </div>
+    </div>
+    <div class="scard rv">
+      <div class="scard-img">
+        <img src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?q=80&w=800" alt="Full Home Package"/>
+        <div class="scard-tag">Best Value</div>
+      </div>
+      <div class="scard-body">
+        <div class="scard-icon">🏠</div>
+        <div class="scard-title">Full Home Package</div>
+        <div class="scard-desc">Complete upholstery cleaning package covering all sofas, mattresses, and carpets in your home. Maximum savings, one visit.</div>
+        <div class="scard-foot">
+          <div class="scard-price"><small>From PKR</small> 7,500</div>
+          <div class="scard-link">Book Now →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="sec sec-light" id="process">
+  <div class="process-wrap">
+    <div class="rv">
+      <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-txt">How It Works</span></div>
+      <h2 class="sec-h2">Simple, Clean,<br><em>Done Right.</em></h2>
+      <p class="sec-p" style="margin-bottom:clamp(28px,4vh,44px);">Our 4-step process is designed to cause zero disruption to your day — and leave your upholstery genuinely transformed.</p>
+      <div class="process-steps">
+        <div class="pstep rv">
+          <div class="pstep-num">01</div>
+          <div>
+            <div class="pstep-t">Book Online or Call</div>
+            <div class="pstep-d">Pick your service, choose your slot, and confirm your address. Takes under 2 minutes. Same-day appointments available.</div>
+          </div>
+        </div>
+        <div class="pstep rv">
+          <div class="pstep-num">02</div>
+          <div>
+            <div class="pstep-t">Technician Arrives</div>
+            <div class="pstep-d">Our uniformed, certified technician arrives on time with all equipment. A quick inspection and fabric assessment is done first.</div>
+          </div>
+        </div>
+        <div class="pstep rv">
+          <div class="pstep-num">03</div>
+          <div>
+            <div class="pstep-t">Deep Clean &amp; Treatment</div>
+            <div class="pstep-d">Pre-treatment spray is applied to stains. Industrial steam extraction removes dirt, bacteria, and allergens from deep within the fabric.</div>
+          </div>
+        </div>
+        <div class="pstep rv">
+          <div class="pstep-num">04</div>
+          <div>
+            <div class="pstep-t">Dry &amp; Refresh</div>
+            <div class="pstep-d">High-velocity drying reduces drying time to under 2 hours. We do a final quality check — you only pay if you're satisfied.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="process-img-wrap rv">
+      <img class="process-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=900" alt="Cleaning process"/>
+      <div class="process-pill">
+        <p>Avg Dry Time</p>
+        <span>~2 hrs</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="sec" id="testimonials">
+  <div style="text-align:center; margin-bottom:clamp(36px,5vh,60px);" class="rv">
+    <div class="eyebrow" style="justify-content:center;"><div class="eyebrow-line"></div><span class="eyebrow-txt">What Clients Say</span><div class="eyebrow-line"></div></div>
+    <h2 class="sec-h2" style="text-align:center;">Real Homes,<br><em>Real Results.</em></h2>
+  </div>
+  <div class="testi-grid">
+    <div class="tc rv">
+      <div class="tc-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="tc-text">"My five-seater had a three-year-old curry stain that I thought was permanent. The SOFACLEAN team removed it completely in one visit. Absolutely phenomenal."</div>
+      <div class="tc-auth">
+        <div class="tc-av">SA</div>
+        <div><div class="tc-nm">Sara Ahmed</div><div class="tc-mt">DHA, Karachi</div></div>
+      </div>
+    </div>
+    <div class="tc rv">
+      <div class="tc-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="tc-text">"We have two dogs and the sofa smell was becoming unbearable. After their treatment, the odour is completely gone. The team was also extremely professional and neat."</div>
+      <div class="tc-auth">
+        <div class="tc-av">HK</div>
+        <div><div class="tc-nm">Hassan Khan</div><div class="tc-mt">F-7, Islamabad</div></div>
+      </div>
+    </div>
+    <div class="tc rv">
+      <div class="tc-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="tc-text">"Booked for the Full Home Package. They cleaned four sofas, two mattresses, and our lounge carpet. Finished in 3 hours and the results were incredible. Worth every rupee."</div>
+      <div class="tc-auth">
+        <div class="tc-av">MR</div>
+        <div><div class="tc-nm">Maria Raza</div><div class="tc-mt">Gulberg, Lahore</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="sec sec-light" id="pricing">
+  <div class="pricing-hd rv">
+    <div class="eyebrow" style="justify-content:center;"><div class="eyebrow-line"></div><span class="eyebrow-txt">Pricing</span><div class="eyebrow-line"></div></div>
+    <h2 class="sec-h2" style="text-align:center;">Honest &amp; <em>Transparent.</em></h2>
+    <p class="sec-p" style="text-align:center;">No surprise charges. No hidden fees. You'll always know what you're paying before we arrive.</p>
+  </div>
+  <div class="prc-grid">
+    <div class="pc rv">
+      <div class="pc-icon">🧹</div>
+      <div class="pc-name">Basic</div>
+      <div class="pc-price"><small>PKR</small> 2,500</div>
+      <div class="pc-dur">1 sofa · 45–60 min</div>
+      <div class="pc-div"></div>
+      <ul class="pc-list">
+        <li><div class="pc-check">✓</div>Single fabric sofa</li>
+        <li><div class="pc-check">✓</div>Steam deep clean</li>
+        <li><div class="pc-check">✓</div>Stain pre-treatment</li>
+        <li><div class="pc-check">✓</div>Odour neutraliser</li>
+      </ul>
+      <button class="pc-btn">Book Basic</button>
+    </div>
+    <div class="pc feat rv">
+      <div class="pc-badge">Most Booked</div>
+      <div class="pc-icon">⭐</div>
+      <div class="pc-name">Signature</div>
+      <div class="pc-price"><small>PKR</small> 5,500</div>
+      <div class="pc-dur">Full set · 90–120 min</div>
+      <div class="pc-div"></div>
+      <ul class="pc-list">
+        <li><div class="pc-check">✓</div>Sofa + 2 chairs</li>
+        <li><div class="pc-check">✓</div>Everything in Basic</li>
+        <li><div class="pc-check">✓</div>Fabric protection spray</li>
+        <li><div class="pc-check">✓</div>UV sanitisation</li>
+        <li><div class="pc-check">✓</div>Free re-clean within 7 days</li>
+      </ul>
+      <button class="pc-btn">Book Signature</button>
+    </div>
+    <div class="pc rv">
+      <div class="pc-icon">🏠</div>
+      <div class="pc-name">Full Home</div>
+      <div class="pc-price"><small>PKR</small> 9,999</div>
+      <div class="pc-dur">Whole home · 3–4 hrs</div>
+      <div class="pc-div"></div>
+      <ul class="pc-list">
+        <li><div class="pc-check">✓</div>All sofas &amp; chairs</li>
+        <li><div class="pc-check">✓</div>All mattresses</li>
+        <li><div class="pc-check">✓</div>All carpets &amp; rugs</li>
+        <li><div class="pc-check">✓</div>Curtain deodorising</li>
+        <li><div class="pc-check">✓</div>Priority booking slot</li>
+      </ul>
+      <button class="pc-btn">Book Full Home</button>
+    </div>
+  </div>
+</section>
+
+<!-- COVERAGE -->
+<section class="sec" id="coverage">
+  <div class="rv" style="max-width:680px;">
+    <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-txt">Coverage Areas</span></div>
+    <h2 class="sec-h2">We Come <em>To You.</em></h2>
+    <p class="sec-p">SOFACLEAN operates across Pakistan's major cities. If you don't see your area below, call us — we may still be able to serve you.</p>
+  </div>
+  <div class="cities-wrap rv">
+    <div class="city-pill"><div class="city-dot"></div>DHA, Karachi</div>
+    <div class="city-pill"><div class="city-dot"></div>Clifton, Karachi</div>
+    <div class="city-pill"><div class="city-dot"></div>Gulshan-e-Iqbal</div>
+    <div class="city-pill"><div class="city-dot"></div>PECHS, Karachi</div>
+    <div class="city-pill"><div class="city-dot"></div>North Nazimabad</div>
+    <div class="city-pill"><div class="city-dot"></div>Gulberg, Lahore</div>
+    <div class="city-pill"><div class="city-dot"></div>DHA, Lahore</div>
+    <div class="city-pill"><div class="city-dot"></div>Model Town</div>
+    <div class="city-pill"><div class="city-dot"></div>F-7, Islamabad</div>
+    <div class="city-pill"><div class="city-dot"></div>F-10, Islamabad</div>
+    <div class="city-pill"><div class="city-dot"></div>Bahria Town</div>
+    <div class="city-pill"><div class="city-dot"></div>G-11, Islamabad</div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec sec-light" id="faq">
+  <div class="faq-grid">
+    <div class="faq-left rv">
+      <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-txt">FAQs</span></div>
+      <h2 class="sec-h2">Got <em>Questions?</em></h2>
+      <p class="sec-p" style="margin-top:14px;">Everything you need to know before booking your first SOFACLEAN appointment.</p>
+    </div>
+    <div class="faq-list" id="faqList">
+      <div class="fq">
+        <div class="fq-q">How long does sofa cleaning take? <i class="fq-ico">+</i></div>
+        <div class="fq-body"><div class="fq-body-in">A standard 3-seater sofa takes approximately 45–60 minutes to clean. Larger sectionals or full-home packages take 2–4 hours. We'll give you an accurate time estimate when you book.</div></div>
+      </div>
+      <div class="fq">
+        <div class="fq-q">How long does the sofa take to dry? <i class="fq-ico">+</i></div>
+        <div class="fq-body"><div class="fq-body-in">Using our high-velocity drying equipment, most sofas are dry to the touch within 1–2 hours. We recommend waiting 2–3 hours before sitting on the sofa for best results.</div></div>
+      </div>
+      <div class="fq">
+        <div class="fq-q">Are your cleaning products safe for children and pets? <i class="fq-ico">+</i></div>
+        <div class="fq-body"><div class="fq-body-in">Absolutely. All our cleaning solutions are non-toxic, biodegradable, and free from harsh chemicals. They are fully safe for babies, children, and pets. We use the same products in our own homes.</div></div>
+      </div>
+      <div class="fq">
+        <div class="fq-q">Can you remove old or set-in stains? <i class="fq-ico">+</i></div>
+        <div class="fq-body"><div class="fq-body-in">In most cases, yes. Our pre-treatment solutions and high-pressure steam can remove stains that have set in for months or even years. Results depend on the stain type and fabric — we'll always give you an honest assessment.</div></div>
+      </div>
+      <div class="fq">
+        <div class="fq-q">Do I need to move my furniture? <i class="fq-ico">+</i></div>
+        <div class="fq-body"><div class="fq-body-in">No. Our technicians handle everything. Just ensure there's a clear path to the sofa and access to a power socket. We bring all equipment with us.</div></div>
+      </div>
+      <div class="fq">
+        <div class="fq-q">What areas do you serve? <i class="fq-ico">+</i></div>
+        <div class="fq-body"><div class="fq-body-in">We currently operate in Karachi, Lahore, and Islamabad, covering all major residential areas. If you're unsure about your location, just give us a call and we'll confirm availability.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec sec-navy" id="contact">
+  <div style="margin-bottom:clamp(36px,5vh,60px);" class="rv">
+    <div class="eyebrow"><div class="eyebrow-line" style="background:var(--acc2);"></div><span class="eyebrow-txt" style="color:var(--acc2);">Get In Touch</span></div>
+    <h2 class="sec-h2 light">Book Your <em style="color:var(--acc2);">Cleaning.</em></h2>
+    <p class="sec-p light">Fill in the form and we'll confirm your slot within 30 minutes.</p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info rv">
+      <div class="ci"><div class="ci-icon">📞</div><div><div class="ci-lbl">Phone / WhatsApp</div><div class="ci-val">+92 300 000 0000<br>+92 321 000 0000</div></div></div>
+      <div class="ci"><div class="ci-icon">📧</div><div><div class="ci-lbl">Email</div><div class="ci-val">info@sofaclean.pk<br>bookings@sofaclean.pk</div></div></div>
+      <div class="ci"><div class="ci-icon">🕐</div><div><div class="ci-lbl">Hours</div><div class="ci-val">Monday – Saturday: 9am – 8pm<br>Sunday: 10am – 6pm</div></div></div>
+      <div class="ci"><div class="ci-icon">📍</div><div><div class="ci-lbl">Service Areas</div><div class="ci-val">Karachi · Lahore · Islamabad<br>Home visits only</div></div></div>
+      <div class="ci" style="border-bottom:none;">
+        <div class="ci-icon">✅</div>
+        <div>
+          <div class="ci-lbl">Our Promise</div>
+          <div class="ci-val">100% satisfaction guarantee. If you're not happy, we'll re-clean for free within 7 days.</div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form-card rv">
+      <div class="form-row">
+        <div class="form-group" style="margin-bottom:0;">
+          <label>Your Name</label>
+          <input type="text" placeholder="Ahmed Khan"/>
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label>Phone / WhatsApp</label>
+          <input type="tel" placeholder="+92 300 000 0000"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>City</label>
+        <select>
+          <option value="">Select your city</option>
+          <option>Karachi</option>
+          <option>Lahore</option>
+          <option>Islamabad</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Service Needed</label>
+        <select>
+          <option value="">Select a service</option>
+          <option>Sofa Deep Clean — PKR 2,500</option>
+          <option>Leather Sofa Care — PKR 3,500</option>
+          <option>Mattress Cleaning — PKR 2,000</option>
+          <option>Carpet Cleaning — PKR 1,800</option>
+          <option>Chair Cleaning — PKR 800</option>
+          <option>Full Home Package — PKR 9,999</option>
+          <option>Custom / Multiple Services</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Preferred Date &amp; Time</label>
+        <input type="text" placeholder="e.g. Tuesday, any time after 2pm"/>
+      </div>
+      <div class="form-group">
+        <label>Address / Additional Notes</label>
+        <textarea placeholder="Street address, area, and any details about the sofa / stain type..."></textarea>
+      </div>
+      <button class="form-submit">📅 Request My Booking Slot</button>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <h2>Clean Sofa,<br><em>Happy Home.</em></h2>
+  <p>Same-day appointments available across Karachi, Lahore &amp; Islamabad</p>
+  <div class="cta-btns">
+    <button class="btn-white" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">📅 Book a Cleaning</button>
+    <a href="tel:+923000000000" class="btn-white-out">📞 Call Us Now</a>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-main">
+    <div class="ft-brand">
+      <a href="#" class="flogo">🛋️ SOFACLEAN</a>
+      <p>Pakistan's trusted professional sofa and upholstery cleaning service. We come to you, fully equipped.</p>
+      <div class="ft-soc">
+        <a href="#">Fb</a><a href="#">Ig</a><a href="#">Wa</a>
+      </div>
+    </div>
+    <div>
+      <div class="ft-col-h">Services</div>
+      <div class="ft-col-l">
+        <a href="#services">Sofa Deep Clean</a>
+        <a href="#services">Leather Sofa Care</a>
+        <a href="#services">Mattress Cleaning</a>
+        <a href="#services">Carpet Cleaning</a>
+        <a href="#pricing">Pricing</a>
+      </div>
+    </div>
+    <div>
+      <div class="ft-col-h">Company</div>
+      <div class="ft-col-l">
+        <a href="#why">Why Us</a>
+        <a href="#process">How It Works</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+    <div>
+      <div class="ft-col-h">Contact</div>
+      <div class="ft-col-l">
+        <a href="#">Karachi · Lahore · Islamabad</a>
+        <a href="#">Mon–Sat: 9am – 8pm</a>
+        <a href="#">Sun: 10am – 6pm</a>
+        <a href="tel:+923000000000">+92 300 000 0000</a>
+        <a href="mailto:info@sofaclean.pk">info@sofaclean.pk</a>
+      </div>
+    </div>
+  </div>
+  <div class="ft-bot">
+    <span>© 2026 SOFACLEAN — All rights reserved</span>
+    <span>Serving Pakistan</span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+/* LOADER */
+const ldFill = document.getElementById('ldFill');
+const ldEl   = document.getElementById('loader');
+let pct = 0;
+const ldInt = setInterval(() => {
+  pct = Math.min(pct + Math.random() * 12 + 5, 100);
+  ldFill.style.width = pct + '%';
+  if (pct >= 100) {
+    clearInterval(ldInt);
+    setTimeout(() => {
+      ldEl.style.transition = 'opacity .6s ease';
+      ldEl.style.opacity = '0';
+      setTimeout(() => { ldEl.style.display = 'none'; startAnimations(); }, 620);
+    }, 200);
+  }
+}, 65);
+
+/* HEADER */
+const hdr = document.getElementById('hdr');
+window.addEventListener('scroll', () => hdr.classList.toggle('solid', window.scrollY > 50), { passive:true });
+
+/* HAMBURGER */
+const ham = document.getElementById('ham');
+const mobDrawer = document.getElementById('mobDrawer');
+const mobBg = document.getElementById('mobBg');
+function openMob() { ham.classList.add('open'); mobDrawer.classList.add('open'); mobBg.classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeMob() { ham.classList.remove('open'); mobDrawer.classList.remove('open'); mobBg.classList.remove('open'); document.body.style.overflow = ''; }
+ham.addEventListener('click', () => ham.classList.contains('open') ? closeMob() : openMob());
+mobBg.addEventListener('click', closeMob);
+document.querySelectorAll('.mob-links a, .mob-cta').forEach(a => a.addEventListener('click', closeMob));
+
+/* FAQ */
+document.querySelectorAll('.fq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const isOpen = q.classList.contains('on');
+    document.querySelectorAll('.fq-q').forEach(oq => { oq.classList.remove('on'); oq.nextElementSibling.style.height = '0'; });
+    if (!isOpen) { q.classList.add('on'); const b = q.nextElementSibling; b.style.height = b.scrollHeight + 'px'; }
+  });
+});
+
+/* SERVICE CARD LINKS → scroll to contact */
+document.querySelectorAll('.scard-link, .pc-btn').forEach(el => {
+  el.style.cursor = 'pointer';
+  el.addEventListener('click', () => document.getElementById('contact').scrollIntoView({ behavior:'smooth' }));
+});
+
+/* ANIMATIONS */
+function startAnimations() {
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.timeline({ defaults:{ ease:'expo.out' } })
+    .from('.hero-tag',   { opacity:0, y:-16, duration:.7, delay:.1 })
+    .from('.hero-h1',    { opacity:0, y:60,  duration:1.1 }, '-=.35')
+    .from('.hero-sub',   { opacity:0, y:20,  duration:.8 }, '-=.5')
+    .from('.hero-btns',  { opacity:0, y:16,  duration:.7 }, '-=.4')
+    .from('.hs',         { opacity:0, y:12,  stagger:.1, duration:.6 }, '-=.3')
+    .from('.hero-visual',{ opacity:0, x:40,  duration:1 }, '-=.8');
+
+  gsap.utils.toArray('.rv').forEach(el => {
+    gsap.fromTo(el,
+      { opacity:0, y:32 },
+      { opacity:1, y:0, duration:.85, ease:'power3.out',
+        scrollTrigger:{ trigger:el, start:'top 88%', toggleActions:'play none none none' } }
+    );
+  });
+
+  const staggerSels = ['.scard', '.tc', '.pc', '.pstep', '.city-pill', '.wp'];
+  staggerSels.forEach(sel => {
+    gsap.utils.toArray(sel).forEach((el, i) => {
+      gsap.fromTo(el,
+        { opacity:0, y:24 },
+        { opacity:1, y:0, duration:.7, delay:i * .08, ease:'power3.out',
+          scrollTrigger:{ trigger:el, start:'top 91%', toggleActions:'play none none none' } }
+      );
+    });
+  });
+
+  /* Nav active highlight */
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-d a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 160) cur = s.id; });
+    navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--blue)' : ''; });
+  }, { passive:true });
+}
+</script>
+</body>
+</html>
